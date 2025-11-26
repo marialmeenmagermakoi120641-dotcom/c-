@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> adj[100];
+vector<int> vis(100, 0);
+
+void dfs(int node) {
+    vis[node] = 1;
+    cout << node << " ";
+
+    for(int nxt : adj[node])
+        if(!vis[nxt])
+            dfs(nxt);
+}
+
+int main() {
+    int n = 5;
+    adj[1] = {2,3};
+    adj[2] = {4};
+    adj[3] = {5};
+
+    dfs(1);
+}
