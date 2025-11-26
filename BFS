@@ -1,0 +1,32 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> adj[100];
+vector<int> vis(100, 0);
+
+void bfs(int start) {
+    queue<int> q;
+    q.push(start);
+    vis[start] = 1;
+
+    while(!q.empty()) {
+        int node = q.front(); q.pop();
+        cout << node << " ";
+
+        for(int nxt : adj[node])
+            if(!vis[nxt]) {
+                vis[nxt] = 1;
+                q.push(nxt);
+            }
+    }
+}
+
+int main() {
+    int n = 5;
+    adj[1] = {2,3};
+    adj[2] = {4};
+    adj[3] = {5};
+
+    bfs(1);
+}
