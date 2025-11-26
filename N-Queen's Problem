@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printBoard(const vector<int>& pos) {
+    int n = pos.size();
+    for(int r = 0; r < n; ++r) {
+        for(int c = 0; c < n; ++c)
+            cout << (pos[r]==c ? "Q " : ". ");
+        cout << '\n';
+    }
+    cout << '\n';
+}
+
+void solve(int row, int n,
+           vector<int>& pos,                
+           vector<char>& col,              
+           vector<char>& diag1,              
+           vector<char>& diag2,              
+           int &count, bool printAll=true) {
+
+    if(row == n) {
+        ++count;
+        if(printAll) printBoard(pos);
+        return;
+    }
+
+    for(int c = 0; c < n; ++c) {
+        int d1 = row + c;
+        int d2 = row - c + (n - 1);
+        if(!col[c] && !diag1[d1] && !diag2[d2]) {
+            pos[row] = c;
+            col[c] = diag1[d1] = diag2[d2] = 1;
+
+            solve(row + 1, n, pos, col, diag1, diag2, count, printAll);
+
+        
+            col[c] = diag1[d1] = diag2[d2] = 0;
+        }
+    }
+}
+
+int main() {
+    int N = 8;               
+    bool printAll = false;    
+    vector<int> pos(N, -1);
+    vector<char> col(N, 0), diag1(2*N-1, 0), diag2(2*N-1, 0);
+    int count = 0;
+
+    solve(0, N, pos, col, diag1, diag2, count, printAll);
+
+    cout << "N = " << N << " -> solutions: " << count << '\n';
+    return 0;
+}
