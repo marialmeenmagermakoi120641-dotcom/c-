@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int bt[] = {5, 4, 2};
+    int n = 3, tq = 2;
+    int rt[3];
+
+    for(int i = 0; i < n; i++) rt[i] = bt[i];
+
+    int time = 0, done;
+    do {
+        done = 1;
+        for(int i = 0; i < n; i++) {
+            if(rt[i] > 0) {
+                done = 0;
+                int run = min(tq, rt[i]);
+                rt[i] -= run;
+                time += run;
+                cout << "P" << i+1 << " runs till " << time << endl;
+            }
+        }
+    } while(!done);
+}
